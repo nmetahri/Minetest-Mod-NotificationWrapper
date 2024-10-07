@@ -1,4 +1,4 @@
-local notifications = {}
+notifications = {}
 local active_notifications = {}
 local hudElements = {}
 local pending_notifications = {}
