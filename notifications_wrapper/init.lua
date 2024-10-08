@@ -19,6 +19,12 @@ function notifications.create(playerName, text, image, timeout)
     return notification
 end
 
+function notifications.does_image_exists(image_name)
+    local complete_name = minetest.get_modpath("notifications_wrapper") .. '/textures/' .. image_name
+    local image = io.open(complete_name)
+    return image ~= nil
+end
+
 function notifications.show(notification)
     local player = minetest.get_player_by_name(notification.playerName)
     if not player then return end
@@ -29,7 +35,7 @@ function notifications.show(notification)
         hud_elem_type = "image",
         position = { x = 0.5, y = 0.5 },
         offset = { x = 0, y = -20 },
-        text = notification.image,
+        text = notifications.does_image_exists(notification.image) and notification.image or "default-bg.jpg",
         scale = { x = 1, y = 1 },
         alignment = { x = 0, y = 0 },
     }))
@@ -93,7 +99,7 @@ minetest.register_chatcommand("notify", {
     params = "<message>",
     description = "Teste une notification",
     func = function(name, param)
-        notifications.queue(name, param, "test_bg.jpg", 5)
+        notifications.queue(name, param, "test_bg.jpg", 10)
     end
 })
 
