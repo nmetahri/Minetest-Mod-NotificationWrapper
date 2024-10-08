@@ -35,7 +35,7 @@ function notifications.show(notification)
         hud_elem_type = "image",
         position = { x = 0.5, y = 0.5 },
         offset = { x = 0, y = -20 },
-        text = notifications.does_image_exists(notification.image) and notification.image or "default-bg.jpg",
+        text = notifications.does_image_exists(notification.image) and notification.image or "default_bg.png",
         scale = { x = 1, y = 1 },
         alignment = { x = 0, y = 0 },
     }))
@@ -99,7 +99,7 @@ minetest.register_chatcommand("notify", {
     params = "<message>",
     description = "Teste une notification",
     func = function(name, param)
-        notifications.queue(name, param, "test_bg.jpg", 10)
+        notifications.queue(name, param, "dfs.jpg", 10)
     end
 })
 
