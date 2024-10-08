@@ -21,11 +21,19 @@ To use the notification system, you can use the `notifications.queue(playerName,
 Example
 
 ```lua
-notifications.queue("player_name", "This is a message !", "my_background.jpg", 10)
+notifications.queue(
+    {
+        playerName = "player_name",
+        title = "This is the title !",
+        text = "This is the notification content",
+        image = "my_background.jpg",
+        timeout = 10
+    }
+)
 ```
 
-This function call will display a notification on the screen of the player naed `player_name` with the message `This is a test message !` and the background `my_background.jpg` for `10 seconds`.
-Note that the `my_background.jpg` needs to be located in the `notifications/textures` folder.
+This function call will display a notification on the screen of the player naed `player_name` with the title `This is the title !`, the message `This is a test message !` and the background `my_background.jpg` for `10 seconds`.
+Note that the `my_background.jpg` needs to be located in the `notifications_wrapper/textures` folder. The recommended size is `800x200`.
 
 ## Integration with Other Mods
 
@@ -41,7 +49,15 @@ This API can be used by other mods to trigger notifications based on in-game eve
 ```lua
 local function on_player_level_up(player)
     if minetest.get_modpath("notifications_wrapper") then
-        notifications.queue("player_name", "Congratulations! You have reached level 5!", "level_up_icon.png", 10)
+        notifications.queue(
+            {
+                playerName = "player_name",
+                title = "Level up !",
+                text = "Congratulations! You have reached level 5!",
+                image = "level_up_icon.png",
+                timeout = 10
+            }
+        )
     end
 end
 ```
