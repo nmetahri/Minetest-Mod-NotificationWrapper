@@ -16,23 +16,49 @@ For example, if a player levels up in another mod, that mod can use this API to 
 
 ## Usage
 
-To use the notification system, instantiate the Notification class, provide the message, an optional icon, and the duration for which the notification should be displayed. Then, call the display() method to render the notification on the player's screen.
+To use the notification system, you can use the `notifications.queue(playerName, text, image, timeout)` function, provide the message, an optional icon, and the duration for which the notification should be displayed. This will render a notification on the specified player's screen.
 
 Example
 
 ```lua
-local notif = Notification:add("You have leveled up!", "level_up_icon.png", 10)
-notif:display()
+notifications.queue(
+    {
+        playerName = "player_name",
+        title = "This is the title !",
+        text = "This is the notification content",
+        image = "my_background.jpg",
+        timeout = 10
+    }
+)
 ```
+
+This function call will display a notification on the screen of the player naed `player_name` with the title `This is the title !`, the message `This is a test message !` and the background `my_background.jpg` for `10 seconds`.
+Note that the `my_background.jpg` needs to be located in the `notifications_wrapper/textures` folder. The recommended size is `800x200`.
 
 ## Integration with Other Mods
 
+### How to display notifications from other mods ?
+To use the notifications system in other mods, you will need to refer it as a dependency of your mod.
+In your `depends.txt` file, just put the name of the mod : `notifications_wrapper`
+
+Then, in your code, you can use the `notifications` table and call the appropriate methods.
+
+### Basic example 
 This API can be used by other mods to trigger notifications based on in-game events. For instance, if a player earns a new level in a leveling mod, the notification system can be used to show a congratulatory message on the screen.
 
 ```lua
 local function on_player_level_up(player)
-    local notif = Notification:new("Congratulations! You have reached level 5!", "level_up_icon.png", 10)
-    notif:display()
+    if minetest.get_modpath("notifications_wrapper") then
+        notifications.queue(
+            {
+                playerName = "player_name",
+                title = "Level up !",
+                text = "Congratulations! You have reached level 5!",
+                image = "level_up_icon.png",
+                timeout = 10
+            }
+        )
+    end
 end
 ```
 
