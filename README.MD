@@ -1,5 +1,6 @@
 # Notification System API for Minetest
 ___
+![Example image](example.jpg)
 
 ## Description
 
